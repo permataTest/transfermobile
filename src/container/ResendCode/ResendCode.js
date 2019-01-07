@@ -4,8 +4,7 @@ import Auz from '../../hoc/Auz/Auz';
 import BodyClass from 'react-body-classname';
 import {connect} from 'react-redux'
 import * as actionTypes from '../../store/action/index';
-
-import ResendCodeCOMP from '../../components/Content/ResendCode/ResendCode';
+import ContentRecendCode from '../../components/Content/RecendCode/ResendCode'
 
 class ResendCode extends Component {
   componentDidMount(){
@@ -15,12 +14,12 @@ class ResendCode extends Component {
   render() {
     return (
       <div>
-        <TitlePages title={"welcome"} />
-        <BodyClass className="no-transition welcome-page" >
+        <TitlePages title={"Kode Verifikasi | Transfer to Mobile - Permata Bank"} />
+        <BodyClass className="no-transition resend-code-page" >
           <Auz>
             <h1>Content Resend Code</h1>
             <h1>{this.props.verification}</h1>
-            <ResendCodeCOMP/>
+            <ContentRecendCode />
           </Auz>
         </BodyClass>
       </div>
