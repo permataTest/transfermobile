@@ -3,6 +3,7 @@ import SideBackground from '../../../components/UI/SideBackground/SideBackground
 import Background from '../../../components/UI/Background/Background';
 import Logo from '../../../components/UI/Logo/Logo';
 import Card from '../../../components/UI/Card/Card';
+import { Link } from 'react-router-dom';
 
 class Welcome extends Component {
     render() {
@@ -12,11 +13,11 @@ class Welcome extends Component {
                 <div className="site-content">
                     <Logo />
                     <Card>
-                        <div class="container-content">
-                            <p>Halo, Selamat datang di <strong class="color-primary">PermataBank</strong></p>
+                        <div className="container-content">
+                            <p>Halo, Selamat datang di <strong className="color-primary">PermataBank</strong></p>
                             <p>Silakan menekan tombol <strong>Lanjut</strong> untuk menyelesaikan Transfer</p>
-                            <div class="wrapper-button">
-                                <a href="resend-code.html" class="button button-primary">Lanjut</a>
+                            <div className="wrapper-button">
+                                <Link to="/resendcode" className="button button-primary">Lanjut</Link>
                             </div>
                         </div>
                         <SideBackground />
