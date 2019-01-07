@@ -1,0 +1,3 @@
+export {
+    getCode
+} from './resendCode';
