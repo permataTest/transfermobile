@@ -46,7 +46,7 @@ class Welcome extends Component {
 
     return (
       <div>
-        <Background />
+        <Background classBG={"bg-theme"}/>
         <div className="site-content">
           <Logo />
           <Card>
