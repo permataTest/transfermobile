@@ -8,7 +8,7 @@ import IconEnter from "../../../assets/images/icon/enter-otp.svg";
 import IconError from "../../../assets/images/icon/error-otp.svg";
 import Button from "../../UI/Button/Button";
 
-class Welcome extends Component {
+class ResendCode extends Component {
 
     state= {
         otp_code: "",
@@ -120,4 +120,4 @@ class Welcome extends Component {
   }
 }
 
-export default Welcome;
+export default ResendCode;
