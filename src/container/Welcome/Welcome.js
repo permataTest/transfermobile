@@ -8,7 +8,7 @@ class Welcome extends Component {
   render() {
     return (
       <div>
-        <TitlePages title={"welcome"} />
+        <TitlePages title={"Halo, Selamat datang di PermataBank | Transfer to Mobile - Permata Bank"} />
         <BodyClass className="no-transition welcome-page" >
           <Auz>
             <ContentWelcome />
