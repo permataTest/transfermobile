@@ -9,7 +9,7 @@ class Welcome extends Component {
     render() {
         return (
             <div>
-                <Background />
+                <Background classBG={"bg-theme"} />
                 <div className="site-content">
                     <Logo />
                     <Card>
