@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TitlePages from '../../components/UI/TitlePages/TitlePages';
 import Auz from '../../hoc/Auz/Auz';
 import BodyClass from 'react-body-classname';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import * as actionTypes from '../../store/action/index';
 import ContentRecendCode from '../../components/Content/RecendCode/ResendCode'
 
@@ -34,8 +34,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    console.log("===================================================", state.code);
-    
+    console.log("===================================================", state.code);   
     return{
       verification : state.code.verification
     }

@@ -4,7 +4,7 @@ class DetailBank extends Component {
   render() {
     return (
       <div>
-        <h1>Detail Bank</h1>
+        <h1>Detail Bank Component</h1>
       </div>
     )
   }
