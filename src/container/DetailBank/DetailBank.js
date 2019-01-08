@@ -20,6 +20,8 @@ componentDidMount(){
           <h1>Content Detail Bank</h1>
           <h1>{this.props.Name}</h1>
           <h1>{this.props.Amount}</h1>
+          <p>{JSON.stringify(this.props.BankList)}</p>
+          <p>{JSON.stringify(this.props.AccountTO)}</p>
           </Auz>
         </BodyClass>
       </div>
@@ -36,8 +38,12 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   console.log("------------------", state.detailB);  
   return{
-    Name   : state.detailB.name,
-    Amount : state.detailB.amount
+    Name      : state.detailB.name,
+    Amount    : state.detailB.amount,
+
+    BankList  : state.detailB.bankList,
+
+    AccountTO : state.detailB.accountTO
   }
 }
 

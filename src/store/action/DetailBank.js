@@ -26,7 +26,7 @@ export const getDetail = () => {
         dispatch(getDetailStart());
         axios({
             method: 'get',
-            url:'https://permata-react.firebaseio.com/Account_Name.json'
+            url:'https://permata-react.firebaseio.com/.json'
         })
         .then((result) => {
             console.log('masuk=======', result);
