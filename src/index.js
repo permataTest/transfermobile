@@ -6,11 +6,15 @@ import thunk from 'redux-thunk';
 import '../src/assets/css/app.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
 import codeReducer from './store/reducer/resendCode';
+import detailBank from './store/reducer/DetailBank';
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
-    code : codeReducer
+    code : codeReducer,
+    detailB : detailBank
 })
 
 const store = createStore(rootReducer, composeEnhancers(
