@@ -881,7 +881,9 @@ input:-webkit-autofill {
   transition: all 0.15s ease; }
   .error-message.show {
     opacity: 1;
-    visibility: visible; }
+    visibility: visible;
+    justify-content: center;
+    }
   @media only screen and (max-width: 767px) {
     .error-message {
       margin: 0; } }
@@ -1811,6 +1813,7 @@ input:-webkit-autofill {
       -webkit-overflow-scrolling: touch; }
       .popup-bank-data .popup-body .error-message {
         padding: 5px 30px;
+        justify-content: center;
         text-align: center; } }
   .popup-bank-data .bank-list {
     padding: 0; }
