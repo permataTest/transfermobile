@@ -29,8 +29,6 @@ export const getDetail = () => {
             url:'https://permata-react.firebaseio.com/.json'
         })
         .then((result) => {
-            console.log('masuk=======', result);
-            
             dispatch(getDetailSuccess(result.data));
         }).catch((err) => {
             dispatch(getDetailFail(err.result))
