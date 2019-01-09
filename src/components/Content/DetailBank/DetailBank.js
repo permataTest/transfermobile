@@ -18,6 +18,7 @@ class DetailBank extends Component {
     targerTransfer: null,
     display: 'none',
     verified: false,
+    bankCode: 0
   }
 
   changeHandler = (event) => {
@@ -26,12 +27,15 @@ class DetailBank extends Component {
     })
   }
 
-  optionHandler = (event) => {
+  optionHandler = (event, code) => {
+    console.log('ono', code);
+    
     event.stopPropagation()
     this.setState({
       bankNameVal: event.target.value,
       inputClass1: 'input-row has-input',
-      inputClass2: 'popup-bank-data jsBankDataPopup'
+      inputClass2: 'popup-bank-data jsBankDataPopup',
+      bankCode: code
     })
   }
 
@@ -94,16 +98,17 @@ class DetailBank extends Component {
     }
     let listAccount = this.props.dataDetail.accountTO
     for (const key in listAccount) {
-      if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString()) {
-        this.setState({
-          showName: 'bank-account-name jsBankAccountName show',
-          targerTransfer: listAccount[key].Name,
-          display: '',
-          verified: true,
-          errMsgClass: 'error-message jsErrorMessageWrongAccount'
-        })
-
-        found = true
+      if (listAccount[key].Bank_Code.toString() === this.state.bankCode.toString()) {
+        if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString()) {
+          this.setState({
+            showName: 'bank-account-name jsBankAccountName show',
+            targerTransfer: listAccount[key].Name,
+            display: '',
+            verified: true,
+            errMsgClass: 'error-message jsErrorMessageWrongAccount'
+          })
+          found = true
+        }
       }
     }
 
@@ -116,7 +121,6 @@ class DetailBank extends Component {
   }
 
   render() {
-
     let dataProps = this.props.dataDetail
     let optionsForm = (
       <div className="popup-body">
@@ -137,6 +141,15 @@ class DetailBank extends Component {
         })
       }
 
+      function compare(a,b) {
+        if (a.bankName < b.bankName)
+          return -1;
+        if (a.bankName > b.bankName)
+          return 1;
+        return 0;
+      }
+
+      listBank.sort(compare)
       optionsForm = (
         <div className="popup-body">
           <div className="bank-list jsBankList">
