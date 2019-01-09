@@ -9,6 +9,9 @@ import ContentRecendCode from '../../components/Content/RecendCode/ResendCode'
 class ResendCode extends Component {
   componentDidMount(){
     this.props.getDataCode()
+
+      console.log(this.props)
+  
   }
   
   render() {
@@ -17,9 +20,7 @@ class ResendCode extends Component {
         <TitlePages title={"Kode Verifikasi | Transfer to Mobile - Permata Bank"} />
         <BodyClass className="no-transition resend-code-page" >
           <Auz>
-            <h1>Content Resend Code</h1>
-            <h1>{this.props.verification}</h1>
-            <ContentRecendCode />
+            <ContentRecendCode code={this.props.verification} />
           </Auz>
         </BodyClass>
       </div>
