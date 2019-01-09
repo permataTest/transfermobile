@@ -4,6 +4,7 @@ import Background from '../../UI/Background/Background'
 import Logo from '../../UI/Logo/Logo'
 import Card from '../../UI/Card/Card'
 import Sidebackground from '../../UI/SideBackground/SideBackground'
+import PreLoader from '../../UI/PreLoader/PreLoader';
 
 class DetailBank extends Component {
 
@@ -18,7 +19,8 @@ class DetailBank extends Component {
     targerTransfer: null,
     display: 'none',
     verified: false,
-    bankCode: 0
+    bankCode: 0,
+    styleLoader: {}
   }
 
   changeHandler = (event) => {
@@ -92,6 +94,17 @@ class DetailBank extends Component {
   }
 
   checkAccount = () => {
+
+    this.setState({
+      styleLoader: { display: "block", opacity: 1 }
+    })
+
+    setTimeout(() => {
+      this.setState({
+        styleLoader: {}
+      });
+    }, 2000)
+
     let found = false
     if (this.state.verified) {
       this.props.dataAllProps.history.push('/transfersuccess')
@@ -236,6 +249,8 @@ class DetailBank extends Component {
             <Sidebackground />
           </Card>
         </div>
+
+        <PreLoader style={this.state.styleLoader}/>
       </div>
     )
   }
