@@ -250,7 +250,7 @@ class DetailBank extends Component {
           </Card>
         </div>
 
-        <PreLoader style={this.state.styleLoader}/>
+        <PreLoader styled={this.state.styleLoader}/>
       </div>
     )
   }
