@@ -66,7 +66,12 @@ class DetailBank extends Component {
 
   }
 
-  clickCard = () => {
+  jSearchHandler = (event) => {
+    console.log(event.target.value);
+    
+  }
+
+  clickCard=() => {
     if (this.state.inputClass1 === 'input-row has-input') {
       this.setState({
         inputClass2: 'popup-bank-data jsBankDataPopup'
@@ -132,6 +137,7 @@ class DetailBank extends Component {
       })
     }
   }
+
 
   render() {
     let dataProps = this.props.dataDetail
@@ -214,7 +220,7 @@ class DetailBank extends Component {
                         {/* HEADER */}
                         <div className="popup-header">
                           <div className="bank-form-input">
-                            <input type="text" name="bank_name" className="input-text jsSearchBank" />
+                            <input type="text" name="bank_name" className="input-text jsSearchBank" onKeyPress={(event) => this.jSearchHandler(event)} />
                           </div>
                           <div className="popup-close jsCloseBankDataPopup">Close Icon</div>
                         </div>
