@@ -20,18 +20,54 @@ class DetailBank extends Component {
     display: 'none',
     verified: false,
     bankCode: 0,
-    styleLoader: {}
+    styleLoader: {},
+    visited: false,
+    dataListBank: []
   }
 
+  formRekKeypress = evt => {
+    let theEvent = evt || window.event;
+    let key = theEvent.keyCode || theEvent.which;
+    let keyString = String.fromCharCode(key);
+    let $numReg = /^[0-9]+$/;
+
+    if (
+      theEvent.which !== 8 &&
+      (theEvent.which !== 13 && theEvent.keyCode !== 13)
+    ) {
+      if (!$numReg.test(keyString)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+      }
+    }
+
+  };
+
   changeHandler = (event) => {
+    let listBankForFiltering = this.props.dataDetail.bankList
+    let arrListBankForFiltering = []
+    let arrListBankForFiltered = []
+    for (const key in listBankForFiltering) {
+      arrListBankForFiltering.push({
+        code: key,
+        bankName: listBankForFiltering[key]
+      })
+    }
+
+    arrListBankForFiltering.forEach(listBank => {
+     if (listBank.bankName.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1) {
+      arrListBankForFiltered.push(listBank)
+     }
+   });
+
     this.setState({
-      bankNameVal: event.target.value
+      bankNameVal: event.target.value,
+      visited: true,
+      dataListBank: arrListBankForFiltered
     })
   }
 
   optionHandler = (event, code) => {
-    console.log('ono', code);
-    
     event.stopPropagation()
     this.setState({
       bankNameVal: event.target.value,
@@ -66,7 +102,8 @@ class DetailBank extends Component {
 
   }
 
-  clickCard = () => {
+
+  clickCard=() => {
     if (this.state.inputClass1 === 'input-row has-input') {
       this.setState({
         inputClass2: 'popup-bank-data jsBankDataPopup'
@@ -103,7 +140,7 @@ class DetailBank extends Component {
       this.setState({
         styleLoader: {}
       });
-    }, 2000)
+    }, 1000)
 
     let found = false
     if (this.state.verified) {
@@ -133,8 +170,17 @@ class DetailBank extends Component {
     }
   }
 
+
   render() {
     let dataProps = this.props.dataDetail
+    let dataPropsBank = null
+    if (!this.state.visited) {
+      dataPropsBank = this.props.dataDetail.bankList
+    } else {
+      dataPropsBank = this.state.dataListBank
+    }
+    
+    // let dataProps = this.props.dataDetail
     let optionsForm = (
       <div className="popup-body">
         <div className="bank-list jsBankList">
@@ -144,15 +190,20 @@ class DetailBank extends Component {
         <div className="error-message jsNoResultsBankList">Tidak ada hasil ditemukan</div>
       </div>
     )
-
-    if (dataProps.bankList) {
+  
+    if (dataPropsBank) {
       let listBank = []
-      for (const key in dataProps.bankList) {
-        listBank.push({
-          code: key,
-          bankName: dataProps.bankList[key]
-        })
+      if (!this.state.visited) {
+        for (const key in dataPropsBank) {
+          listBank.push({
+            code: key,
+            bankName: dataPropsBank[key]
+          })
+        }
+      } else {
+        listBank = dataPropsBank
       }
+
 
       function compare(a,b) {
         if (a.bankName < b.bankName)
@@ -162,26 +213,46 @@ class DetailBank extends Component {
         return 0;
       }
 
+      
       listBank.sort(compare)
-      optionsForm = (
-        <div className="popup-body">
-          <div className="bank-list jsBankList">
-            {
-              listBank.map((option, key) => {
-                let optionList = null
-                if (key === 0) {
-                  optionList = <option className="item selected" key={option.code} value={option.bankName} onClick={(event) => this.optionHandler(event, option.code)}>{option.bankName}</option>
-                } else {
-                  optionList = <option className="item" key={option.code} value={option.bankName} onClick={(event) => this.optionHandler(event, option.code)}>{option.bankName}</option>
-                }
-
-                return optionList
-              })
-            }
+      if (listBank.length > 0) {
+        optionsForm = (
+          <div className="popup-body">
+            <div className="bank-list jsBankList">
+              {
+                listBank.map((option, key) => {
+                  let optionList = null
+                  if (key === 0) {
+                    optionList = <option 
+                                    className="item selected" 
+                                    key={option.code} 
+                                    value={option.bankName} 
+                                    onClick={(event) => this.optionHandler(event, option.code)}
+                                  >
+                                    {option.bankName}
+                                  </option>
+                  } else {
+                    optionList = <option 
+                                    className="item" 
+                                    key={option.code} 
+                                    value={option.bankName} 
+                                    onClick={(event) => this.optionHandler(event, option.code)}
+                                  >
+                                    {option.bankName}
+                                  </option>
+                  }
+  
+                  return optionList
+                })
+              }
+            </div>
+            {/* <div className="error-message jsNoResultsBankList">Tidak ada hasil ditemukan</div> */}
           </div>
-          <div className="error-message jsNoResultsBankList">Tidak ada hasil ditemukan</div>
-        </div>
-      )
+        )
+      } else {
+
+        optionsForm = <option style={{ color: 'red', fontSize: 12, textAlignLast: 'center' }}>Tidak ada hasil ditemukan</option>
+      }
     }
     return (
       <div onClick={() => this.clickCard()}>
@@ -204,7 +275,14 @@ class DetailBank extends Component {
                   <div className="row">
                     <div className="col-lg-6 col-sm-12" >
                       <div className={this.state.inputClass1} onClick={(event) => this.clickformOpt(event)}>
-                        <input name="bank_name" type="text" className="input-text input-search jsInputText jsBankName" id="keyInBank" value={this.state.bankNameVal} onChange={(event) => this.changeHandler(event)} />
+                        <input 
+                          name="bank_name" 
+                          type="text" 
+                          className="input-text input-search jsInputText jsBankName" 
+                          id="keyInBank" 
+                          value={this.state.bankNameVal} 
+                          onChange={(event) => this.changeHandler(event)}
+                          />
                         <input name="bank_code" type="hidden" className="jsBankCode" />
                         <label htmlFor="keyInBank" className="input-label">Masukkan Nama Bank</label>
                       </div>
@@ -226,7 +304,17 @@ class DetailBank extends Component {
                     </div>
                     <div className="col-lg-6 col-sm-12">
                       <div className="input-row">
-                        <input name="account_number" type="text" className="input-text jsInputText jsAccountNumber" pattern="\d*" maxLength="24" id="accountNumber" onChange={(event) => this.rekeningHandler(event)} onKeyUp={(event) => this.keyUpRekHanlder(event)} value={this.state.rekeningVal}/>
+                        <input 
+                          name="account_number" 
+                          type="text" 
+                          className="input-text jsInputText jsAccountNumber" 
+                          pattern="\d*" 
+                          maxLength="24" 
+                          id="accountNumber" 
+                          onChange={(event) => this.rekeningHandler(event)} 
+                          onKeyUp={(event) => this.keyUpRekHanlder(event)} 
+                          onKeyPress={(event => this.formRekKeypress(event))}
+                          value={this.state.rekeningVal}/>
                         <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
                       </div>
                     </div>
