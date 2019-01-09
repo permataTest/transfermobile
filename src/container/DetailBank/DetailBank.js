@@ -23,7 +23,7 @@ componentDidMount(){
           <h1>{this.props.Amount}</h1>
           <p>{JSON.stringify(this.props.BankList)}</p>
           <p>{JSON.stringify(this.props.AccountTO)}</p> */}
-          <ContenDetailBank dataDetail={this.props.dataDetailBank}/>
+          <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props}/>
           </Auz>
         </BodyClass>
       </div>
