@@ -20,11 +20,12 @@ class DetailBank extends Component {
   }
 
   optionHandler = (event) => {
+    console.log("Input optionHandler");
     event.stopPropagation()
     this.setState({
       bankNameVal: event.target.value,
       inputClass1: 'input-row has-input',
-      inputClass2: 'popup-bank-data jsBankDataPopup show'
+      inputClass2: 'popup-bank-data jsBankDataPopup'
     })
   }
 
@@ -137,12 +138,12 @@ class DetailBank extends Component {
                   
                       </div>
                     </div>
-                    {/* <div className="col-lg-6 col-sm-12">
+                    <div className="col-lg-6 col-sm-12">
                       <div className="input-row">
                         <input name="account_number" type="text" className="input-text jsInputText jsAccountNumber" pattern="\d*" maxLength="24" id="accountNumber"  />
                         <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col-lg-12 col-sm-12">
