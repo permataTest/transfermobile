@@ -25,6 +25,24 @@ class DetailBank extends Component {
     dataListBank: []
   }
 
+  formRekKeypress = evt => {
+    let theEvent = evt || window.event;
+    let key = theEvent.keyCode || theEvent.which;
+    let keyString = String.fromCharCode(key);
+    let $numReg = /^[0-9]+$/;
+
+    if (
+      theEvent.which !== 8 &&
+      (theEvent.which !== 13 && theEvent.keyCode !== 13)
+    ) {
+      if (!$numReg.test(keyString)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+      }
+    }
+
+  };
+
   changeHandler = (event) => {
     let listBankForFiltering = this.props.dataDetail.bankList
     let arrListBankForFiltering = []
@@ -122,7 +140,7 @@ class DetailBank extends Component {
       this.setState({
         styleLoader: {}
       });
-    }, 2000)
+    }, 1000)
 
     let found = false
     if (this.state.verified) {
@@ -286,7 +304,17 @@ class DetailBank extends Component {
                     </div>
                     <div className="col-lg-6 col-sm-12">
                       <div className="input-row">
-                        <input name="account_number" type="text" className="input-text jsInputText jsAccountNumber" pattern="\d*" maxLength="24" id="accountNumber" onChange={(event) => this.rekeningHandler(event)} onKeyUp={(event) => this.keyUpRekHanlder(event)} value={this.state.rekeningVal}/>
+                        <input 
+                          name="account_number" 
+                          type="text" 
+                          className="input-text jsInputText jsAccountNumber" 
+                          pattern="\d*" 
+                          maxLength="24" 
+                          id="accountNumber" 
+                          onChange={(event) => this.rekeningHandler(event)} 
+                          onKeyUp={(event) => this.keyUpRekHanlder(event)} 
+                          onKeyPress={(event => this.formRekKeypress(event))}
+                          value={this.state.rekeningVal}/>
                         <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
                       </div>
                     </div>
