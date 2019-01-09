@@ -33,8 +33,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const mapStateToProps = state => {
-    console.log("===================================================", state.code);   
+const mapStateToProps = state => { 
     return{
       verification : state.code.verification
     }
