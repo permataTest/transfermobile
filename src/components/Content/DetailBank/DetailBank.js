@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
+import * as actions from '../../../store/action/index';
 import Background from '../../UI/Background/Background'
 import Logo from '../../UI/Logo/Logo'
 import Card from '../../UI/Card/Card'
@@ -156,9 +158,8 @@ class DetailBank extends Component {
     })
   }
 
-
-  // account verification
   checkAccount = () => {
+    this.props.onAccountDetail(this.state.bankNameVal, this.state.rekeningVal, this.state.targerTransfer)
     this.setState({
       styleLoader: { display: "block", opacity: 1 }
     })
@@ -171,7 +172,9 @@ class DetailBank extends Component {
 
     let found = false
     if (this.state.verified) {
-      this.props.dataAllProps.history.push('/transfersuccess')
+      // setTimeout(() => {
+        this.props.dataAllProps.history.push('/transfersuccess')
+      // }, 3000)
     }
     let listAccount = this.props.dataDetail.accountTO
     
@@ -370,4 +373,10 @@ class DetailBank extends Component {
   }
 }
 
-export default DetailBank;
+const mapDispatchToProps = dispatch => {
+  return{
+    onAccountDetail: (targerTransfer, bankNameVal, rekeningVal) => dispatch(actions.getOnAccountDetail(targerTransfer, bankNameVal, rekeningVal))
+  }
+}
+
+export default connect(null,mapDispatchToProps)(DetailBank);

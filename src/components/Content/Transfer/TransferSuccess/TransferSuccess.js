@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import SideBackground from '../../../../components/UI/SideBackground/SideBackground';
 import Background from '../../../../components/UI/Background/Background';
 import Logo from '../../../../components/UI/Logo/Logo';
@@ -6,6 +8,7 @@ import Card from '../../../../components/UI/Card/Card';
 import LogoSuccess from '../../../../assets/images/icon/transfer-success.svg';
 
 class TransferSuccess extends Component {
+
   render() {
     return (
       <div>
@@ -19,14 +22,14 @@ class TransferSuccess extends Component {
               </div>
               <div className="bank-account-name">
                 <p>
-                  <strong>Abdy Salimin,</strong><br />
+                  <strong>{this.props.AccountName},</strong><br />
                   Transaksi telah berhasil dilakukan ke
 					      </p>
               </div>
               <div className="bank-detail">
                 <p>
-                  Bank Central Asia (BCA)<br />
-                  <strong>0293-2728-5743</strong>
+                  {this.props.BankName}<br />
+                  <strong>{this.props.AccountNo}</strong>
                 </p>
               </div>
             </div>
@@ -38,4 +41,15 @@ class TransferSuccess extends Component {
   }
 }
 
-export default TransferSuccess;
+const mapStateToProps = state => {
+  console.log(
+    state.getAcc,"Masuk transfer Success"
+  );
+  
+  return{
+    BankName    : state.getAcc.BankName,
+    AccountName : state.getAcc.AccountName,
+    AccountNo   : state.getAcc.AccountNo
+}
+}
+export default connect(mapStateToProps,null)(TransferSuccess);
