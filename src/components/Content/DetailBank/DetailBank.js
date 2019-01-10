@@ -277,6 +277,8 @@ class DetailBank extends Component {
         optionsForm = <option style={{ color: 'red', fontSize: 12, textAlignLast: 'center' }}>Tidak ada hasil ditemukan</option>
       }
     }
+
+    
     return (
       <div onClick={() => this.clickCard()}>
         <Background classBG={"bg-theme"} />
