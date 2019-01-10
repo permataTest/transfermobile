@@ -10,7 +10,7 @@ class ResendCode extends Component {
   componentDidMount(){
     this.props.getDataCode()
 
-      console.log(this.props)
+      console.log(this.props.history)
   
   }
   
@@ -20,7 +20,8 @@ class ResendCode extends Component {
         <TitlePages title={"Kode Verifikasi | Transfer to Mobile - Permata Bank"} />
         <BodyClass className="no-transition resend-code-page" >
           <Auz>
-            <ContentRecendCode code={this.props.verification} />
+            <ContentRecendCode code={this.props.verification} 
+             history={this.props.history}/>
           </Auz>
         </BodyClass>
       </div>
