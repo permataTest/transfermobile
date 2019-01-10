@@ -114,6 +114,10 @@ class DetailBank extends Component {
       this.setState({
         buttonClass: 'button button-primary jsButtonDetailBank'
       })
+    } else {
+      this.setState({
+        buttonClass: 'button button-primary button-disabled jsButtonDetailBank'
+      })
     }
 
   }
@@ -159,7 +163,7 @@ class DetailBank extends Component {
   }
 
   checkAccount = () => {
-    this.props.onAccountDetail(this.state.bankNameVal, this.state.rekeningVal, this.state.targerTransfer)
+    this.props.onAccountDetail(this.props.dataDetail.name, this.state.bankNameVal, this.state.rekeningVal )
     this.setState({
       styleLoader: { display: "block", opacity: 1 }
     })
@@ -172,14 +176,23 @@ class DetailBank extends Component {
 
     let found = false
     if (this.state.verified) {
-      // setTimeout(() => {
+      let success = false
+      for (const key in this.props.dataDetail.accountTO) {
+        if (this.props.dataDetail.accountTO[key].Bank_Code.toString() === this.state.bankCode.toString()) {
+         success = true
+        }
+        
+      }
+      
+      if (success) {
         this.props.dataAllProps.history.push('/transfersuccess')
-      // }, 3000)
+      } else {
+        this.props.dataAllProps.history.push('/transferunsuccess')
+      }
     }
     let listAccount = this.props.dataDetail.accountTO
     
     for (const key in listAccount) {
-      // if (listAccount[key].Bank_Code.toString() === this.state.bankCode.toString()) {
         if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString().split("-").join("")) {
           this.setState({
             showName: 'bank-account-name jsBankAccountName show',
@@ -190,7 +203,6 @@ class DetailBank extends Component {
           })
           found = true
         }
-      // }
     }
 
     if (!found) {

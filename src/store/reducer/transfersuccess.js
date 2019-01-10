@@ -16,14 +16,11 @@ const dataTransfer = (state=initialstate, action) => {
                 loading : true
             }
         case actionTypes.FETCH_SUCCESS_SUCCESS:
-        console.log(
-            action.payload,"|| Masuk reducer"
-        );
         
         return{
             ...state,
-            BankName    : action.payload.targerTransfer,
-            AccountName : action.payload.bankNameVal,
+            AccountName : action.payload.targerTransfer,
+            BankName    : action.payload.bankNameVal,
             AccountNo   : action.payload.rekeningVal,
             loading     : false
         }

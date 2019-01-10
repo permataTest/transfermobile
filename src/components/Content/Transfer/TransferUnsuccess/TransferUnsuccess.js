@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import SideBackground from '../../../../components/UI/SideBackground/SideBackground';
 import Background from '../../../../components/UI/Background/Background';
 import Logo from '../../../../components/UI/Logo/Logo';
@@ -20,7 +21,7 @@ class TransferUnsuccess extends Component {
                             </div>
                             <div className="bank-account-name">
                                 <p>
-                                    <strong>Abdy Salimin,</strong><br />
+                                    <strong>{this.props.receiver}</strong><br />
                                     Kamu tidak berhasil melakukan transfer
 					            </p>
                             </div>
@@ -36,4 +37,10 @@ class TransferUnsuccess extends Component {
     }
 }
 
-export default TransferUnsuccess;
+const mapStateToProps = state => {
+    return {
+        receiver : state.getAcc.AccountName
+    }
+}
+
+export default connect(mapStateToProps)(TransferUnsuccess);
