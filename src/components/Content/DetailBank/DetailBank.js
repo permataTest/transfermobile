@@ -174,9 +174,10 @@ class DetailBank extends Component {
       this.props.dataAllProps.history.push('/transfersuccess')
     }
     let listAccount = this.props.dataDetail.accountTO
+    
     for (const key in listAccount) {
       if (listAccount[key].Bank_Code.toString() === this.state.bankCode.toString()) {
-        if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString()) {
+        if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString().split("-").join("")) {
           this.setState({
             showName: 'bank-account-name jsBankAccountName show',
             targerTransfer: listAccount[key].Name,
@@ -189,6 +190,8 @@ class DetailBank extends Component {
       }
     }
 
+    console.log(found);
+    
     if (!found) {
       this.setState({
         errMsgClass: 'error-message jsErrorMessageWrongAccount show'

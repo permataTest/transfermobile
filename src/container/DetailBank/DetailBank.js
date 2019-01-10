@@ -22,7 +22,6 @@ componentDidMount(){
             {
               this.props.dataDetailBank.loading ? <PreLoader styled={{ display: "block", opacity: 1 }}/>: <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props}/>
             }
-         
           </Auz>
         </BodyClass>
       </div>
