@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SideBackground from "../../../components/UI/SideBackground/SideBackground";
 import Background from "../../../components/UI/Background/Background";
 import Logo from "../../../components/UI/Logo/Logo";
@@ -65,6 +65,8 @@ class ResendCode extends Component {
   }
 
   OTPverfivicationCode = () => {
+    console.log("masuk");
+    
     let otp_input = this.state.otp_code;
     let otp = this.props.code;
 
@@ -122,7 +124,7 @@ class ResendCode extends Component {
               <div className="resend-code-form">
                 <form className="form" autoComplete="off">
                   <div className="input-row">
-                    <input
+                    <input                
                       name="otp_code"
                       type="text"
                       className="input-text"
@@ -152,6 +154,7 @@ class ResendCode extends Component {
                   type="Button"
                   classButton={this.state.button}
                   clicked={this.OTPverfivicationCode}
+                  btnDisabled={!this.state.otp_code}
                 >
                   Konfirmasi Kode
                 </Button>
@@ -168,4 +171,4 @@ class ResendCode extends Component {
   }
 }
 
-export default withRouter(ResendCode);
+export default ResendCode;
