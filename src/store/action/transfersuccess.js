@@ -7,7 +7,6 @@ export const getSuccessStart = () => {
 }
 
 export const getSuccessSuccess = (targerTransfer, bankNameVal, rekeningVal) => {
-    console.log(targerTransfer, bankNameVal, rekeningVal, "|| action type");
     let payload = {targerTransfer, bankNameVal, rekeningVal}
     return{
         type: actionTypes.FETCH_SUCCESS_SUCCESS,
@@ -16,9 +15,7 @@ export const getSuccessSuccess = (targerTransfer, bankNameVal, rekeningVal) => {
 }
 
 export const getOnAccountDetail = (targerTransfer, bankNameVal, rekeningVal) => {
-    console.log(targerTransfer, bankNameVal, rekeningVal,"Masuk redux");
     return (dispatch) => {
-        // dispatch(getSuccessStart());
         dispatch(getSuccessSuccess(targerTransfer, bankNameVal, rekeningVal));
     }
 }
