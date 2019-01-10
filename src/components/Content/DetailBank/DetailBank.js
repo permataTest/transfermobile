@@ -176,7 +176,7 @@ class DetailBank extends Component {
     let listAccount = this.props.dataDetail.accountTO
     
     for (const key in listAccount) {
-      if (listAccount[key].Bank_Code.toString() === this.state.bankCode.toString()) {
+      // if (listAccount[key].Bank_Code.toString() === this.state.bankCode.toString()) {
         if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString().split("-").join("")) {
           this.setState({
             showName: 'bank-account-name jsBankAccountName show',
@@ -187,11 +187,9 @@ class DetailBank extends Component {
           })
           found = true
         }
-      }
+      // }
     }
 
-    console.log(found);
-    
     if (!found) {
       this.setState({
         errMsgClass: 'error-message jsErrorMessageWrongAccount show'
