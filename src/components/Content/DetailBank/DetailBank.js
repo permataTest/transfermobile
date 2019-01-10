@@ -25,6 +25,7 @@ class DetailBank extends Component {
     dataListBank: []
   }
 
+  // event only number for account number
   formRekKeypress = evt => {
     let theEvent = evt || window.event;
     let key = theEvent.keyCode || theEvent.which;
@@ -43,6 +44,7 @@ class DetailBank extends Component {
 
   };
 
+  // event when bank name value change in form list bank
   changeHandler = (event) => {
     let listBankForFiltering = this.props.dataDetail.bankList
     let arrListBankForFiltering = []
@@ -55,10 +57,10 @@ class DetailBank extends Component {
     }
 
     arrListBankForFiltering.forEach(listBank => {
-     if (listBank.bankName.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1) {
-      arrListBankForFiltered.push(listBank)
-     }
-   });
+      if (listBank.bankName.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1) {
+        arrListBankForFiltered.push(listBank)
+      }
+    });
 
     this.setState({
       bankNameVal: event.target.value,
@@ -67,16 +69,20 @@ class DetailBank extends Component {
     })
   }
 
+  //event when click or choose value form option
   optionHandler = (event, code) => {
     event.stopPropagation()
     this.setState({
       bankNameVal: event.target.value,
       inputClass1: 'input-row has-input',
       inputClass2: 'popup-bank-data jsBankDataPopup',
-      bankCode: code
+      bankCode: code,
+      rekeningVal: ''
     })
   }
 
+
+  //event when form option clicked
   clickformOpt = (event) => {
     event.stopPropagation()
     this.setState({
@@ -85,16 +91,24 @@ class DetailBank extends Component {
     })
   }
 
+  // event when account value change
   rekeningHandler = (event) => {
+    let newRekVal = event.target.value.toString()
+    let rekVal = newRekVal.split("-").join("")
+    if (rekVal.length > 0) {
+      rekVal = rekVal.match(new RegExp('.{1,4}', 'g')).join("-");
+    }
     this.setState({
-      rekeningVal: event.target.value
+      rekeningVal: rekVal
     })
 
   }
 
+
+  // event when finish input account 
   keyUpRekHanlder = (event) => {
     let rekVal = event.target.value.toString()
-    if (rekVal.length >= 10) {
+    if (rekVal.length >= 10 && this.state.bankNameVal !== '') {
       this.setState({
         buttonClass: 'button button-primary jsButtonDetailBank'
       })
@@ -102,8 +116,8 @@ class DetailBank extends Component {
 
   }
 
-
-  clickCard=() => {
+  // event click card
+  clickCard = () => {
     if (this.state.inputClass1 === 'input-row has-input') {
       this.setState({
         inputClass2: 'popup-bank-data jsBankDataPopup'
@@ -116,7 +130,18 @@ class DetailBank extends Component {
     }
   }
 
+  // reset form
   resetForm = () => {
+    let listBank = this.props.dataDetail.bankList
+    let arrlistBank = []
+    for (const key in listBank) {
+      arrlistBank.push({
+        code: key,
+        bankName: listBank[key]
+      })
+    }
+
+
     this.setState({
       inputClass1: 'input-row',
       inputClass2: 'popup-bank-data jsBankDataPopup',
@@ -127,11 +152,13 @@ class DetailBank extends Component {
       targerTransfer: null,
       display: 'none',
       verified: false,
+      dataListBank: arrlistBank
     })
   }
 
-  checkAccount = () => {
 
+  // account verification
+  checkAccount = () => {
     this.setState({
       styleLoader: { display: "block", opacity: 1 }
     })
@@ -162,7 +189,6 @@ class DetailBank extends Component {
       }
     }
 
-    
     if (!found) {
       this.setState({
         errMsgClass: 'error-message jsErrorMessageWrongAccount show'
@@ -179,8 +205,7 @@ class DetailBank extends Component {
     } else {
       dataPropsBank = this.state.dataListBank
     }
-    
-    // let dataProps = this.props.dataDetail
+
     let optionsForm = (
       <div className="popup-body">
         <div className="bank-list jsBankList">
@@ -190,7 +215,7 @@ class DetailBank extends Component {
         <div className="error-message jsNoResultsBankList">Tidak ada hasil ditemukan</div>
       </div>
     )
-  
+
     if (dataPropsBank) {
       let listBank = []
       if (!this.state.visited) {
@@ -205,7 +230,7 @@ class DetailBank extends Component {
       }
 
 
-      function compare(a,b) {
+      function compare(a, b) {
         if (a.bankName < b.bankName)
           return -1;
         if (a.bankName > b.bankName)
@@ -213,7 +238,7 @@ class DetailBank extends Component {
         return 0;
       }
 
-      
+
       listBank.sort(compare)
       if (listBank.length > 0) {
         optionsForm = (
@@ -223,25 +248,25 @@ class DetailBank extends Component {
                 listBank.map((option, key) => {
                   let optionList = null
                   if (key === 0) {
-                    optionList = <option 
-                                    className="item selected" 
-                                    key={option.code} 
-                                    value={option.bankName} 
-                                    onClick={(event) => this.optionHandler(event, option.code)}
-                                  >
-                                    {option.bankName}
-                                  </option>
+                    optionList = <option
+                      className="item selected"
+                      key={option.code}
+                      value={option.bankName}
+                      onClick={(event) => this.optionHandler(event, option.code)}
+                    >
+                      {option.bankName}
+                    </option>
                   } else {
-                    optionList = <option 
-                                    className="item" 
-                                    key={option.code} 
-                                    value={option.bankName} 
-                                    onClick={(event) => this.optionHandler(event, option.code)}
-                                  >
-                                    {option.bankName}
-                                  </option>
+                    optionList = <option
+                      className="item"
+                      key={option.code}
+                      value={option.bankName}
+                      onClick={(event) => this.optionHandler(event, option.code)}
+                    >
+                      {option.bankName}
+                    </option>
                   }
-  
+
                   return optionList
                 })
               }
@@ -250,7 +275,6 @@ class DetailBank extends Component {
           </div>
         )
       } else {
-
         optionsForm = <option style={{ color: 'red', fontSize: 12, textAlignLast: 'center' }}>Tidak ada hasil ditemukan</option>
       }
     }
@@ -275,14 +299,14 @@ class DetailBank extends Component {
                   <div className="row">
                     <div className="col-lg-6 col-sm-12" >
                       <div className={this.state.inputClass1} onClick={(event) => this.clickformOpt(event)}>
-                        <input 
-                          name="bank_name" 
-                          type="text" 
-                          className="input-text input-search jsInputText jsBankName" 
-                          id="keyInBank" 
-                          value={this.state.bankNameVal} 
+                        <input
+                          name="bank_name"
+                          type="text"
+                          className="input-text input-search jsInputText jsBankName"
+                          id="keyInBank"
+                          value={this.state.bankNameVal}
                           onChange={(event) => this.changeHandler(event)}
-                          />
+                        />
                         <input name="bank_code" type="hidden" className="jsBankCode" />
                         <label htmlFor="keyInBank" className="input-label">Masukkan Nama Bank</label>
                       </div>
@@ -304,17 +328,17 @@ class DetailBank extends Component {
                     </div>
                     <div className="col-lg-6 col-sm-12">
                       <div className="input-row">
-                        <input 
-                          name="account_number" 
-                          type="text" 
-                          className="input-text jsInputText jsAccountNumber" 
-                          pattern="\d*" 
-                          maxLength="24" 
-                          id="accountNumber" 
-                          onChange={(event) => this.rekeningHandler(event)} 
-                          onKeyUp={(event) => this.keyUpRekHanlder(event)} 
+                        <input
+                          name="account_number"
+                          type="text"
+                          className="input-text jsInputText jsAccountNumber"
+                          pattern="\d*"
+                          maxLength="24"
+                          id="accountNumber"
+                          onChange={(event) => this.rekeningHandler(event)}
+                          onKeyUp={(event) => this.keyUpRekHanlder(event)}
                           onKeyPress={(event => this.formRekKeypress(event))}
-                          value={this.state.rekeningVal}/>
+                          value={this.state.rekeningVal} />
                         <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
                       </div>
                     </div>
@@ -338,7 +362,7 @@ class DetailBank extends Component {
           </Card>
         </div>
 
-        <PreLoader styled={this.state.styleLoader}/>
+        <PreLoader styled={this.state.styleLoader} />
       </div>
     )
   }
