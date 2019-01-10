@@ -9,8 +9,8 @@ import PreLoader from '../../UI/PreLoader/PreLoader';
 class DetailBank extends Component {
 
   state = {
-    inputClass1: 'input-row',
-    inputClass2: 'popup-bank-data jsBankDataPopup',
+    inputClassFormBank: 'input-row',
+    inputClassListBank: 'popup-bank-data jsBankDataPopup',
     buttonClass: 'button button-primary button-disabled jsButtonDetailBank',
     showName: 'bank-account-name jsBankAccountName',
     errMsgClass: 'error-message jsErrorMessageWrongAccount',
@@ -74,8 +74,8 @@ class DetailBank extends Component {
     event.stopPropagation()
     this.setState({
       bankNameVal: event.target.value,
-      inputClass1: 'input-row has-input',
-      inputClass2: 'popup-bank-data jsBankDataPopup',
+      inputClassFormBank: 'input-row has-input',
+      inputClassListBank: 'popup-bank-data jsBankDataPopup',
       bankCode: code,
       rekeningVal: ''
     })
@@ -86,8 +86,8 @@ class DetailBank extends Component {
   clickformOpt = (event) => {
     event.stopPropagation()
     this.setState({
-      inputClass1: 'input-row has-input',
-      inputClass2: 'popup-bank-data jsBankDataPopup show'
+      inputClassFormBank: 'input-row has-input',
+      inputClassListBank: 'popup-bank-data jsBankDataPopup show'
     })
   }
 
@@ -118,13 +118,13 @@ class DetailBank extends Component {
 
   // event click card
   clickCard = () => {
-    if (this.state.inputClass1 === 'input-row has-input') {
+    if (this.state.inputClassFormBank === 'input-row has-input') {
       this.setState({
-        inputClass2: 'popup-bank-data jsBankDataPopup'
+        inputClassListBank: 'popup-bank-data jsBankDataPopup'
       })
       if (this.state.bankNameVal === '') {
         this.setState({
-          inputClass1: 'input-row',
+          inputClassFormBank: 'input-row',
         })
       }
     }
@@ -143,8 +143,8 @@ class DetailBank extends Component {
 
 
     this.setState({
-      inputClass1: 'input-row',
-      inputClass2: 'popup-bank-data jsBankDataPopup',
+      inputClassFormBank: 'input-row',
+      inputClassListBank: 'popup-bank-data jsBankDataPopup',
       buttonClass: 'button button-primary button-disabled jsButtonDetailBank',
       showName: 'bank-account-name jsBankAccountName',
       bankNameVal: '',
@@ -271,7 +271,6 @@ class DetailBank extends Component {
                 })
               }
             </div>
-            {/* <div className="error-message jsNoResultsBankList">Tidak ada hasil ditemukan</div> */}
           </div>
         )
       } else {
@@ -298,7 +297,7 @@ class DetailBank extends Component {
                 <form action="transfer-success.html" className="form jsFormDetailBank" autoComplete="off">
                   <div className="row">
                     <div className="col-lg-6 col-sm-12" >
-                      <div className={this.state.inputClass1} onClick={(event) => this.clickformOpt(event)}>
+                      <div className={this.state.inputClassFormBank} onClick={(event) => this.clickformOpt(event)}>
                         <input
                           name="bank_name"
                           type="text"
@@ -311,7 +310,7 @@ class DetailBank extends Component {
                         <label htmlFor="keyInBank" className="input-label">Masukkan Nama Bank</label>
                       </div>
 
-                      <div className={this.state.inputClass2} data-jsonurl="data/bank-list.json">
+                      <div className={this.state.inputClassListBank} data-jsonurl="data/bank-list.json">
 
                         {/* HEADER */}
                         <div className="popup-header">
