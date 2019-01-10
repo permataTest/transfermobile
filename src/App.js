@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 
 import Error404 from './container/404/Error404';
 import DetailBank from './container/DetailBank/DetailBank';
@@ -19,6 +19,7 @@ class App extends Component {
           <Route path="/transfersuccess" component={TransferSuccess} />
           <Route path="/transferunsuccess" component={TransferUnsuccess} />
           <Route path="/error404" component={Error404} />
+          <Redirect to="/error404" />
         </Switch>
       </BrowserRouter>
     );
