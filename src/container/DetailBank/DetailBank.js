@@ -6,6 +6,7 @@ import TitlePages from '../../components/UI/TitlePages/TitlePages';
 import Auz from '../../hoc/Auz/Auz';
 import * as actionTypes from '../../store/action/index';
 import ContenDetailBank from '../../components/Content/DetailBank/DetailBank'
+import PreLoader from '../../components/UI/PreLoader/PreLoader';
 
 class DetailBank extends Component {
 componentDidMount(){
@@ -18,12 +19,9 @@ componentDidMount(){
         <TitlePages title={"Proses Transfer | Transfer to Mobile - Permata Bank"} />
         <BodyClass className="no-transition welcome-page" >
           <Auz>
-          {/* <h1>Content Detail Bank</h1>
-          <h1>{this.props.Name}</h1>
-          <h1>{this.props.Amount}</h1>
-          <p>{JSON.stringify(this.props.BankList)}</p>
-          <p>{JSON.stringify(this.props.AccountTO)}</p> */}
-          <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props}/>
+            {
+              this.props.dataDetailBank.loading ? <PreLoader styled={{ display: "block", opacity: 1 }}/>: <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props}/>
+            }
           </Auz>
         </BodyClass>
       </div>

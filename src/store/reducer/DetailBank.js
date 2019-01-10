@@ -6,7 +6,7 @@ let initialState = {
     bankList  : "",
     accountTO : "",
     error     : null,
-    loading   : false
+    loading   : true
 }
 
 const dataDetail = (state=initialState, action) => {

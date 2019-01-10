@@ -18,7 +18,7 @@ class App extends Component {
           <Route path="/resendcode" component={ResendCode} />
           <Route path="/transfersuccess" component={TransferSuccess} />
           <Route path="/transferunsuccess" component={TransferUnsuccess} />
-          <Route path="/error404" component={Error404} />
+          <Route component={Error404} />
         </Switch>
       </BrowserRouter>
     );
