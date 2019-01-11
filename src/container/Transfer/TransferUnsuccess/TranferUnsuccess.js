@@ -6,9 +6,6 @@ import ContentTransferUnsuccess from "../../../components/Content/Transfer/Trans
 import Head from "../../../components/UI/Head/Head";
 
 class TranferUnsuccess extends Component {
-  componentDidMount(){
-    console.log("Tandaan naon ue bebas", this.props);
-  }
   render() {
     return (
       <div>
