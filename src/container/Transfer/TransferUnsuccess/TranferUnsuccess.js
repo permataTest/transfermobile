@@ -15,7 +15,7 @@ class TranferUnsuccess extends Component {
         <BodyClass className="no-transition transfer-page">
           <Auz>
             <Head>
-              <ContentTransferUnsuccess />
+              <ContentTransferUnsuccess transferUnsuccess={this.props}/>
             </Head>
           </Auz>
         </BodyClass>
