@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import SideBackground from "../../../components/UI/SideBackground/SideBackground";
-import Background from "../../../components/UI/Background/Background";
-import Logo from "../../../components/UI/Logo/Logo";
-import Card from "../../../components/UI/Card/Card";
 import IconEnter from "../../../assets/images/icon/enter-otp.svg";
 import IconError from "../../../assets/images/icon/error-otp.svg";
 import Button from "../../UI/Button/Button";
@@ -34,7 +30,6 @@ class ResendCode extends Component {
         if (theEvent.preventDefault) theEvent.preventDefault();
       }
     }
-
   };
 
   OTPkeyup = evt => {
@@ -65,8 +60,7 @@ class ResendCode extends Component {
   }
 
   OTPverfivicationCode = () => {
-    console.log("masuk");
-    
+
     let otp_input = this.state.otp_code;
     let otp = this.props.code;
 
@@ -87,84 +81,73 @@ class ResendCode extends Component {
   render() {
     return (
       <div>
-        <Background classBG={"bg-theme"} />
-        <div className="site-content">
-          <Logo />
-          <Card>
-            <div className="container-content">
-              {/* Icon */}
-              <div className="resend-code-icon">
-                <img
-                  src={IconEnter}
-                  alt="Enter OTP"
-                  className={this.state.imageSuccess}
-                />
-                <img
-                  src={IconError}
-                  alt="Enter OTP"
-                  className={this.state.imageError}
-                />
-              </div>
-
-              {/* Title */}
-              <div className="resend-code-title">
-                <h5>
-                  <span>6 Digit</span> Kode Verifikasi
-                </h5>
-              </div>
-
-              {/* Error */}
-              <div className={this.state.error}>
-                Maaf, kode yang kamu masukkan salah.
-                <br />
-                Mohon coba kembali.
-              </div>
-
-              {/* Form */}
-              <div className="resend-code-form">
-                <form className="form" autoComplete="off">
-                  <div className="input-row">
-                    <input                
-                      name="otp_code"
-                      type="text"
-                      className="input-text"
-                      maxLength="6"
-                      pattern="\d*"
-                      autoComplete="off"
-                      onKeyPress={this.OTPkeypress}
-                      onKeyUp={this.OTPkeyup}
-                    />
-                  </div>
-                </form>
-              </div>
-
-              {/* Button Resend & Close */}
-              <div className="resend-code-button">
-                <Link to="/resendcode" className="resend-button">
-                  Kirim Ulang Kode
-                </Link>
-                <Link to="/" className="close-button">
-                  Tombol Tutup
-                </Link>
-              </div>
-
-              {/* Button Konfirmasi */}
-              <div className="wrapper-button">
-                <Button
-                  type="Button"
-                  classButton={this.state.button}
-                  clicked={this.OTPverfivicationCode}
-                  btnDisabled={!this.state.otp_code}
-                >
-                  Konfirmasi Kode
-                </Button>
-              </div>
-            </div>
-
-            <SideBackground />
-          </Card>
+        {/* Icon */}
+        <div className="resend-code-icon">
+          <img
+            src={IconEnter}
+            alt="Enter OTP"
+            className={this.state.imageSuccess}
+          />
+          <img
+            src={IconError}
+            alt="Enter OTP"
+            className={this.state.imageError}
+          />
         </div>
 
+        {/* Title */}
+        <div className="resend-code-title">
+          <h5>
+            <span>6 Digit</span> Kode Verifikasi
+          </h5>
+        </div>
+
+        {/* Error */}
+        <div className={this.state.error}>
+          Maaf, kode yang kamu masukkan salah.
+          <br />
+          Mohon coba kembali.
+        </div>
+
+        {/* Form */}
+        <div className="resend-code-form">
+          <form className="form" autoComplete="off">
+            <div className="input-row">
+              <input
+                name="otp_code"
+                type="text"
+                className="input-text"
+                maxLength="6"
+                pattern="\d*"
+                autoComplete="off"
+                onKeyPress={this.OTPkeypress}
+                onKeyUp={this.OTPkeyup}
+              />
+            </div>
+          </form>
+        </div>
+
+        {/* Button Resend & Close */}
+        <div className="resend-code-button">
+          <Link to="/resendcode" className="resend-button">
+            Kirim Ulang Kode
+          </Link>
+          <Link to="/" className="close-button">
+            Tombol Tutup
+          </Link>
+        </div>
+
+        {/* Button Konfirmasi */}
+        <div className="wrapper-button">
+          <Button
+            type="Button"
+            classButton={this.state.button}
+            clicked={this.OTPverfivicationCode}
+            btnDisabled={!this.state.otp_code}
+          >
+            Konfirmasi Kode
+          </Button>
+        </div>
         <PreLoader styled={this.state.loader} />
       </div>
     );
