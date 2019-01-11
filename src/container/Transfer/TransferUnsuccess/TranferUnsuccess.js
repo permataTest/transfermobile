@@ -6,6 +6,9 @@ import ContentTransferUnsuccess from "../../../components/Content/Transfer/Trans
 import Head from "../../../components/UI/Head/Head";
 
 class TranferUnsuccess extends Component {
+  componentDidMount(){
+    console.log("Tandaan naon ue bebas", this.props);
+  }
   render() {
     return (
       <div>
@@ -15,7 +18,7 @@ class TranferUnsuccess extends Component {
         <BodyClass className="no-transition transfer-page">
           <Auz>
             <Head>
-              <ContentTransferUnsuccess />
+              <ContentTransferUnsuccess transferUnsuccess={this.props}/>
             </Head>
           </Auz>
         </BodyClass>
