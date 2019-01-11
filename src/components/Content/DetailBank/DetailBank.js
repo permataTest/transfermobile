@@ -1,8 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+<<<<<<< HEAD
 import * as actions from "../../../store/action/index";
 import PreLoader from "../../UI/PreLoader/PreLoader";
+=======
+import * as actions from '../../../store/action/index';
+import Background from '../../UI/Background/Background'
+import Logo from '../../UI/Logo/Logo'
+import Card from '../../UI/Card/Card'
+import Sidebackground from '../../UI/SideBackground/SideBackground'
+import PreLoader from '../../UI/PreLoader/PreLoader';
+import Button from '../../UI/Button/Button'
+>>>>>>> ref button detail
 
 class DetailBank extends Component {
   state = {
@@ -19,8 +29,14 @@ class DetailBank extends Component {
     bankCode: 0,
     styleLoader: {},
     visited: false,
+<<<<<<< HEAD
     dataListBank: []
   };
+=======
+    dataListBank: [],
+    buttonDisabed: ""
+  }
+>>>>>>> ref button detail
 
   // event only number for account number
   formRekKeypress = evt => {
@@ -107,12 +123,23 @@ class DetailBank extends Component {
     let rekVal = event.target.value.toString();
     if (rekVal.length >= 10 && this.state.bankNameVal !== "") {
       this.setState({
+<<<<<<< HEAD
         buttonClass: "button button-primary jsButtonDetailBank"
       });
     } else {
       this.setState({
         buttonClass: "button button-primary button-disabled jsButtonDetailBank"
       });
+=======
+        buttonClass: 'button button-primary jsButtonDetailBank',
+        buttonDisabed: rekVal
+      })
+    } else {
+      this.setState({
+        buttonClass: 'button button-primary button-disabled jsButtonDetailBank',
+        buttonDisabed: ''
+      })
+>>>>>>> ref button detail
     }
   };
 
@@ -389,12 +416,20 @@ class DetailBank extends Component {
                   </label>
                 </div>
               </div>
+<<<<<<< HEAD
             </div>
             <div className="row">
               <div className="col-lg-12 col-sm-12">
                 <div className={this.state.errMsgClass}>
                   Kamu memasukkan Nomor Rekening yang tidak dikenal
                 </div>
+=======
+              <div className="wrapper-button">
+                <Button 
+                  clicked={() => this.checkAccount()} 
+                  classButton={this.state.buttonClass} 
+                  btnDisabled={!this.state.buttonDisabed}> Lanjut </Button>
+>>>>>>> ref button detail
               </div>
             </div>
             <div className={this.state.showName}>
