@@ -3,6 +3,7 @@ import TitlePages from '../../components/UI/TitlePages/TitlePages';
 import Auz from '../../hoc/Auz/Auz';
 import BodyClass from 'react-body-classname';
 import ContentWelcome from '../../components/Content/Welcome/Welcome';
+import Head from '../../components/UI/Head/Head'
 
 class Welcome extends Component {
   render() {
@@ -11,7 +12,9 @@ class Welcome extends Component {
         <TitlePages title={"Halo, Selamat datang di PermataBank | Transfer to Mobile - Permata Bank"} />
         <BodyClass className="no-transition welcome-page" >
           <Auz>
-            <ContentWelcome />
+            <Head>
+                <ContentWelcome />
+            </Head>
           </Auz>
         </BodyClass>
       </div>
