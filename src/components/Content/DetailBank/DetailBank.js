@@ -91,6 +91,11 @@ class DetailBank extends Component {
     })
   }
 
+  //event when form option mobile clicked
+  clickformOptMobile = (event) => {
+    event.stopPropagation()
+  }
+
   // event when account value change
   rekeningHandler = (event) => {
     let newRekVal = event.target.value.toString()
@@ -325,10 +330,16 @@ class DetailBank extends Component {
 
                       <div className={this.state.inputClassListBank} data-jsonurl="data/bank-list.json">
 
-                        {/* HEADER */}
+                        {/* HEADER MOBILE */}
                         <div className="popup-header">
                           <div className="bank-form-input">
-                            <input type="text" name="bank_name" className="input-text jsSearchBank" />
+                            <input 
+                                type="text" 
+                                name="bank_name" 
+                                className="input-text jsSearchBank"
+                                value={this.state.bankNameVal}
+                                onClick={(event) => this.clickformOptMobile(event)}
+                                onChange={(event) => this.changeHandler(event)}/>
                           </div>
                           <div className="popup-close jsCloseBankDataPopup">Close Icon</div>
                         </div>
