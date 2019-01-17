@@ -7,7 +7,10 @@ import Head from "../../../components/UI/Head/Head";
 
 class TranferUnsuccess extends Component {
   componentDidMount(){
-    console.log("Tandaan naon ue bebas", this.props);
+      window.history.pushState(null, null, window.location.href);
+      window.onpopstate = function () {
+          window.history.go(1);
+      };
   }
   render() {
     return (

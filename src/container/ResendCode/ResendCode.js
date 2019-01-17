@@ -10,14 +10,17 @@ import Head from "../../components/UI/Head/Head";
 class ResendCode extends Component {
   componentDidMount() {
     this.props.getDataCode();
+
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+        window.history.go(1);
+    };
   }
 
   render() {
     return (
       <div>
-        <TitlePages
-          title={"Kode Verifikasi | Transfer to Mobile - Permata Bank"}
-        />
+        <TitlePages title={"Kode Verifikasi | Transfer to Mobile - Permata Bank"}/>
         <BodyClass className="no-transition resend-code-page">
           <Auz>
             <Head>

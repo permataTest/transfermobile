@@ -30,8 +30,6 @@ class TransferSuccess extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state, "================");
-
   return {
     BankName: state.getAcc.BankName,
     AccountName: state.getAcc.AccountName,

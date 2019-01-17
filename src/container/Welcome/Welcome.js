@@ -6,6 +6,7 @@ import ContentWelcome from '../../components/Content/Welcome/Welcome';
 import Head from '../../components/UI/Head/Head'
 
 class Welcome extends Component {
+
   render() {
     return (
       <div>
