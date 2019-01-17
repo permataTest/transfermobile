@@ -21,15 +21,19 @@ class ResendCode extends Component {
     let keyString = String.fromCharCode(key);
     let $numReg = /^[0-9]+$/;
 
-    if (
-      theEvent.which !== 8 &&
-      (theEvent.which !== 13 && theEvent.keyCode !== 13)
-    ) {
+    if (evt.key === 'Enter'){
+      console.log("Di enter");
+    }
+    // if (
+    //   theEvent.which !== 8 &&
+    //   (theEvent.which !== 13 && theEvent.keyCode !== 13)
+    // ) 
+    
       if (!$numReg.test(keyString)) {
         theEvent.returnValue = false;
         if (theEvent.preventDefault) theEvent.preventDefault();
       }
-    }
+    
   };
 
   OTPkeyup = evt => {
