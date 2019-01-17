@@ -221,13 +221,11 @@ class DetailBank extends Component {
   }
 
   preventRefresh = (event) => {
-    // console.log('masuk pak ');
     event.preventDefault()
   }
 
   enterPressed = (event) => {
     var code = event.keyCode || event.which
-    
     if (code === 13) {
       this.checkAccount()
     }
