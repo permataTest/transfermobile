@@ -78,6 +78,16 @@ class ResendCode extends Component {
     }
   };
 
+  preventRefresh = (event) => {
+    event.preventDefault()
+  }
+
+  enterTrigered = (event) => {
+    if(event.keyCode === 13 || event.which === 13) {
+      this.OTPverfivicationCode()
+    }
+  }
+
   render() {
     return (
       <div>
@@ -111,7 +121,7 @@ class ResendCode extends Component {
 
         {/* Form */}
         <div className="resend-code-form">
-          <form className="form" autoComplete="off">
+          <form className="form" autoComplete="off" onSubmit={this.preventRefresh}>
             <div className="input-row">
               <input
                 name="otp_code"
@@ -122,6 +132,7 @@ class ResendCode extends Component {
                 autoComplete="off"
                 onKeyPress={this.OTPkeypress}
                 onKeyUp={this.OTPkeyup}
+                onKeyDown={this.enterTrigered}
               />
             </div>
           </form>
