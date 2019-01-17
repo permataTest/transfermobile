@@ -6,6 +6,12 @@ import ContentTransferUnsuccess from "../../../components/Content/Transfer/Trans
 import Head from "../../../components/UI/Head/Head";
 
 class TranferUnsuccess extends Component {
+  componentDidMount(){
+      window.history.pushState(null, null, window.location.href);
+      window.onpopstate = function () {
+          window.history.go(1);
+      };
+  }
   render() {
     return (
       <div>

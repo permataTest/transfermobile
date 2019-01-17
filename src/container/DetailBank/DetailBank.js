@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BodyClass from 'react-body-classname';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import TitlePages from '../../components/UI/TitlePages/TitlePages';
 import Auz from '../../hoc/Auz/Auz';
@@ -10,9 +10,14 @@ import PreLoader from '../../components/UI/PreLoader/PreLoader';
 import Head from "../../components/UI/Head/Head";
 
 class DetailBank extends Component {
-componentDidMount(){
-  this.props.getDataDetail()
-}
+  componentDidMount() {
+    this.props.getDataDetail()
+
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+      window.history.go(1);
+    };
+  }
 
   render() {
     return (
@@ -21,10 +26,9 @@ componentDidMount(){
         <BodyClass className="no-transition welcome-page" >
           <Auz>
             <Head>
-
-            {
-              this.props.dataDetailBank.loading ? <PreLoader styled={{ display: "block", opacity: 1 }}/>: <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props}/>
-            }
+              {
+                this.props.dataDetailBank.loading ? <PreLoader styled={{ display: "block", opacity: 1 }} /> : <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props} />
+              }
             </Head>
           </Auz>
         </BodyClass>
@@ -34,15 +38,15 @@ componentDidMount(){
 }
 
 const mapDispatchToProps = dispatch => {
-  return{
-    getDataDetail : () => dispatch(actionTypes.getDetail())
+  return {
+    getDataDetail: () => dispatch(actionTypes.getDetail())
   }
 }
 
 const mapStateToProps = state => {
-  return{
+  return {
     dataDetailBank: state.detailB
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(DetailBank);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailBank);

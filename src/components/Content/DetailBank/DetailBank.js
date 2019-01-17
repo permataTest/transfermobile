@@ -22,7 +22,8 @@ class DetailBank extends Component {
     styleLoader: {},
     visited: false,
     dataListBank: [],
-    buttonDisabed: ""
+    buttonDisabed: "",
+    chekAccountShow: false
   }
 
   // event only number for account number
@@ -175,9 +176,10 @@ class DetailBank extends Component {
 
     setTimeout(() => {
       this.setState({
+        chekAccountShow: true,
         styleLoader: {}
       });
-    }, 1000)
+    }, 2000);
 
     let found = false
     if (this.state.verified) {
@@ -195,8 +197,8 @@ class DetailBank extends Component {
         this.props.dataAllProps.history.push('/transferunsuccess')
       }
     }
+
     let listAccount = this.props.dataDetail.accountTO
-    
     for (const key in listAccount) {
         if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString().split("-").join("")) {
           this.setState({
@@ -204,7 +206,8 @@ class DetailBank extends Component {
             targerTransfer: listAccount[key].Name,
             display: '',
             verified: true,
-            errMsgClass: 'error-message jsErrorMessageWrongAccount'
+            errMsgClass: 'error-message jsErrorMessageWrongAccount',
+            chekAccountShow: false
           })
           found = true
         }
@@ -214,6 +217,19 @@ class DetailBank extends Component {
       this.setState({
         errMsgClass: 'error-message jsErrorMessageWrongAccount show'
       })
+    }
+  }
+
+  preventRefresh = (event) => {
+    // console.log('masuk pak ');
+    event.preventDefault()
+  }
+
+  enterPressed = (event) => {
+    var code = event.keyCode || event.which
+    
+    if (code === 13) {
+      this.checkAccount()
     }
   }
 
@@ -312,7 +328,7 @@ class DetailBank extends Component {
                 Silakan pilih bank dan rekening yang diinginkan untuk menyelesaikan proses transfer
 				      </p>
               <div className="detail-bank-form">
-                <form action="transfer-success.html" className="form jsFormDetailBank" autoComplete="off">
+                <form action="transfer-success.html" className="form jsFormDetailBank" autoComplete="off" onSubmit={this.preventRefresh}>
                   <div className="row">
                     <div className="col-lg-6 col-sm-12" >
                       <div className={this.state.inputClassFormBank} onClick={(event) => this.clickformOpt(event)}>
@@ -361,6 +377,7 @@ class DetailBank extends Component {
                           onChange={(event) => this.rekeningHandler(event)}
                           onKeyUp={(event) => this.keyUpRekHanlder(event)}
                           onKeyPress={(event => this.formRekKeypress(event))}
+                          onKeyDown={(event) => this.enterPressed(event)}
                           value={this.state.rekeningVal} />
                         <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
                       </div>
@@ -371,10 +388,16 @@ class DetailBank extends Component {
                       <div className={this.state.errMsgClass}>Kamu memasukkan Nomor Rekening yang tidak dikenal</div>
                     </div>
                   </div>
-                  <div className={this.state.showName}>{this.state.targerTransfer} &nbsp;</div>
-                  <div className="bank-reset-form" onClick={() => this.resetForm()}>
-                    <div className="not-this-account jsResetDetailBank" onClick={() => this.resetForm()} style={{ display: this.state.display }}>Bukan akun ini?</div>
-                  </div>
+                    {
+                      this.state.chekAccountShow ? (
+                        <div>
+                        <div className={this.state.showName}>{this.state.targerTransfer} &nbsp;</div>
+                        <div className="bank-reset-form" onClick={() => this.resetForm()}>
+                          <div className="not-this-account jsResetDetailBank" onClick={() => this.resetForm()} style={{ display: this.state.display }}>Bukan akun ini?</div>
+                        </div>
+                        </div>
+                      ) : null
+                    }
                 </form>
               </div>
               <div className="wrapper-button">
