@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 class Welcome extends Component {
 
   render() {
+
+    
+  let handleKeypress = (e) => {
+    if (e.keyCode === 'Enter'){
+      console.log("Di enter");
+    }
+  }
+
     return (
       <div>
         <p>
@@ -14,8 +22,8 @@ class Welcome extends Component {
           Silakan menekan tombol <strong>Lanjut</strong> untuk menyelesaikan
           Transfer
         </p>
-        <div className="wrapper-button" onKeyPress={(event) => this.enterPressed(event)}>
-          <Link to="/resendcode" className="button button-primary">
+        <div className="wrapper-button">
+          <Link to="/resendcode" className="button button-primary" onKeyPress={console.log("DiEnter")}>
             Lanjut
           </Link>
         </div>

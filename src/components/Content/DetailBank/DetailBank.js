@@ -374,7 +374,7 @@ class DetailBank extends Component {
                           id="accountNumber"
                           onChange={(event) => this.rekeningHandler(event)}
                           onKeyUp={(event) => this.keyUpRekHanlder(event)}
-                          onKeyPress={(event => this.formRekKeypress(event))}
+                          
                           onKeyDown={(event) => this.enterPressed(event)}
                           value={this.state.rekeningVal} />
                         <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
@@ -402,7 +402,8 @@ class DetailBank extends Component {
                 <Button 
                   clicked={() => this.checkAccount()} 
                   classButton={this.state.buttonClass} 
-                  btnDisabled={!this.state.buttonDisabed}> Lanjut </Button>
+                  btnDisabled={!this.state.buttonDisabed}
+                  onKeyPress={(event => this.formRekKeypress(event))}> Lanjut </Button>
                 {/* // <div className={this.state.buttonClass}  onClick={() => this.checkAccount()}>Lanjut</div> */}
               </div>
         <PreLoader styled={this.state.styleLoader} />
