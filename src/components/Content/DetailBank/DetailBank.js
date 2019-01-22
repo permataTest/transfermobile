@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import * as actions from '../../../store/action/index';
 import PreLoader from '../../UI/PreLoader/PreLoader';
@@ -23,7 +23,8 @@ class DetailBank extends Component {
     visited: false,
     dataListBank: [],
     buttonDisabed: "",
-    chekAccountShow: false
+    chekAccountShow: false,
+    index: 0
   }
 
   // event only number for account number
@@ -66,7 +67,8 @@ class DetailBank extends Component {
     this.setState({
       bankNameVal: event.target.value,
       visited: true,
-      dataListBank: arrListBankForFiltered
+      dataListBank: arrListBankForFiltered,
+      index: 0
     })
   }
 
@@ -171,7 +173,7 @@ class DetailBank extends Component {
 
   //event for checkaccount
   checkAccount = () => {
-    this.props.onAccountDetail(this.props.dataDetail.name, this.state.bankNameVal, this.state.rekeningVal )
+    this.props.onAccountDetail(this.props.dataDetail.name, this.state.bankNameVal, this.state.rekeningVal)
     this.setState({
       styleLoader: { display: "block", opacity: 1 }
     })
@@ -205,17 +207,17 @@ class DetailBank extends Component {
 
     let listAccount = this.props.dataDetail.accountTO
     for (const key in listAccount) {
-        if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString().split("-").join("")) {
-          this.setState({
-            showName: 'bank-account-name jsBankAccountName show',
-            targerTransfer: listAccount[key].Name,
-            display: '',
-            verified: true,
-            errMsgClass: 'error-message jsErrorMessageWrongAccount',
-            chekAccountShow: false
-          })
-          found = true
-        }
+      if (listAccount[key].No_Account.toString() === this.state.rekeningVal.toString().split("-").join("")) {
+        this.setState({
+          showName: 'bank-account-name jsBankAccountName show',
+          targerTransfer: listAccount[key].Name,
+          display: '',
+          verified: true,
+          errMsgClass: 'error-message jsErrorMessageWrongAccount',
+          chekAccountShow: false
+        })
+        found = true
+      }
     }
 
     if (!found) {
@@ -240,6 +242,100 @@ class DetailBank extends Component {
     }
   }
 
+  chooseBank = (event) => {
+    let dataPropsBank = []
+    let listBank = []
+    let codeArrow = 'bawah'
+    switch (event.which) {
+      case 40:
+        console.log('ini ke bawah')
+        if (!this.state.visited) {
+          dataPropsBank = this.props.dataDetail.bankList
+          for (const key in dataPropsBank) {
+            listBank.push({
+              code: key,
+              bankName: dataPropsBank[key]
+            })
+          }
+        } else {
+          listBank = this.state.dataListBank
+        }
+
+        if (this.state.index < listBank.length) {
+          this.setState(prevState => ({
+            bankNameVal: listBank[this.state.index].bankName,
+            index: prevState.index + 1
+          }))
+        }
+        
+        break;
+      case 38:
+        console.log('ini ke atas')
+        // let dataPropsBank = []
+        // let listBank = []
+        if (!this.state.visited) {
+          dataPropsBank = this.props.dataDetail.bankList
+          for (const key in dataPropsBank) {
+            listBank.push({
+              code: key,
+              bankName: dataPropsBank[key]
+            })
+          }
+        } else {
+          listBank = this.state.dataListBank
+        }
+        
+        if (codeArrow === 'bawah') {
+          codeArrow = 'atas'
+          if (this.state.index >= 2) {
+            this.setState(prevState => ({
+                bankNameVal: listBank[this.state.index - 2].bankName,
+                index: prevState.index - 1
+            }))
+          } else {
+            console.log('masuk',listBank[this.state.index -1].bankName)
+          }
+        } else {
+          this.setState(prevState => ({
+            bankNameVal: listBank[this.state.index].bankName,
+            index: prevState.index - 1
+        }))
+        }
+
+        
+        // this.setState(prevState => ({
+        //   index: prevState.index - 1
+        // }))
+        break;
+      case 13:
+        if (this.state.inputClassFormBank === 'input-row has-input') {
+          this.setState({
+            inputClassListBank: 'popup-bank-data jsBankDataPopup'
+          })
+          if (this.state.bankNameVal === '') {
+            this.setState({
+              inputClassFormBank: 'input-row',
+            })
+          }
+        }
+        break;
+      case 27:
+        if (this.state.inputClassFormBank === 'input-row has-input') {
+          this.setState({
+            inputClassListBank: 'popup-bank-data jsBankDataPopup'
+          })
+          if (this.state.bankNameVal === '') {
+            this.setState({
+              inputClassFormBank: 'input-row',
+            })
+          }
+        }
+        break;
+      default:
+        console.log('ini default')
+        break;
+    }
+  }
 
   render() {
     let dataProps = this.props.dataDetail
@@ -273,17 +369,6 @@ class DetailBank extends Component {
         listBank = dataPropsBank
       }
 
-
-      function compare(a, b) {
-        if (a.bankName < b.bankName)
-          return -1;
-        if (a.bankName > b.bankName)
-          return 1;
-        return 0;
-      }
-
-
-      listBank.sort(compare)
       if (listBank.length > 0) {
         optionsForm = (
           <div className="popup-body">
@@ -322,99 +407,100 @@ class DetailBank extends Component {
       }
     }
 
-    
+
     return (
       <div onClick={() => this.clickCard()}>
-              <p className="top-sub-head">
-                <strong>{dataProps.name}</strong> mengirimkan uang sebesar
+        <p className="top-sub-head">
+          <strong>{dataProps.name}</strong> mengirimkan uang sebesar
 				      </p>
-              <p className="amount">
-                <strong className="color-primary">Rp {dataProps.amount.toLocaleString()}</strong>
-              </p>
-              <p>
-                Silakan pilih bank dan rekening yang diinginkan untuk menyelesaikan proses transfer
+        <p className="amount">
+          <strong className="color-primary">Rp {dataProps.amount.toLocaleString()}</strong>
+        </p>
+        <p>
+          Silakan pilih bank dan rekening yang diinginkan untuk menyelesaikan proses transfer
 				      </p>
-              <div className="detail-bank-form">
-                <form action="transfer-success.html" className="form jsFormDetailBank" autoComplete="off" onSubmit={this.preventRefresh}>
-                  <div className="row">
-                    <div className="col-lg-6 col-sm-12" >
-                      <div className={this.state.inputClassFormBank} onClick={(event) => this.clickformOpt(event)}>
-                        <input
-                          name="bank_name"
-                          type="text"
-                          className="input-text input-search jsInputText jsBankName"
-                          id="keyInBank"
-                          value={this.state.bankNameVal}
-                          onChange={(event) => this.changeHandler(event)}
-                        />
-                        <input name="bank_code" type="hidden" className="jsBankCode" />
-                        <label htmlFor="keyInBank" className="input-label">Masukkan Nama Bank</label>
-                      </div>
+        <div className="detail-bank-form">
+          <form action="transfer-success.html" className="form jsFormDetailBank" autoComplete="off" onSubmit={this.preventRefresh}>
+            <div className="row">
+              <div className="col-lg-6 col-sm-12" >
+                <div className={this.state.inputClassFormBank} onClick={(event) => this.clickformOpt(event)}>
+                  <input
+                    name="bank_name"
+                    type="text"
+                    className="input-text input-search jsInputText jsBankName"
+                    id="keyInBank"
+                    value={this.state.bankNameVal}
+                    onChange={(event) => this.changeHandler(event)}
+                    onKeyDown={event => this.chooseBank(event)}
+                  />
+                  <input name="bank_code" type="hidden" className="jsBankCode" />
+                  <label htmlFor="keyInBank" className="input-label">Masukkan Nama Bank</label>
+                </div>
 
-                      <div className={this.state.inputClassListBank} data-jsonurl="data/bank-list.json">
+                <div className={this.state.inputClassListBank} data-jsonurl="data/bank-list.json">
 
-                        {/* HEADER MOBILE */}
-                        <div className="popup-header">
-                          <div className="bank-form-input">
-                            <input 
-                                type="text" 
-                                name="bank_name" 
-                                className="input-text jsSearchBank"
-                                value={this.state.bankNameVal}
-                                onClick={(event) => this.clickformOptMobile(event)}
-                                onChange={(event) => this.changeHandler(event)}/>
-                          </div>
-                          <div className="popup-close jsCloseBankDataPopup">Close Icon</div>
-                        </div>
-
-                        {/* BODY */}
-                        {optionsForm}
-
-                      </div>
+                  {/* HEADER MOBILE */}
+                  <div className="popup-header">
+                    <div className="bank-form-input">
+                      <input
+                        type="text"
+                        name="bank_name"
+                        className="input-text jsSearchBank"
+                        value={this.state.bankNameVal}
+                        onClick={(event) => this.clickformOptMobile(event)}
+                        onChange={(event) => this.changeHandler(event)} />
                     </div>
-                    <div className="col-lg-6 col-sm-12">
-                      <div className="input-row">
-                        <input
-                          name="account_number"
-                          type="text"
-                          className="input-text jsInputText jsAccountNumber"
-                          pattern="\d*"
-                          maxLength="24"
-                          id="accountNumber"
-                          onChange={(event) => this.rekeningHandler(event)}
-                          onKeyUp={(event) => this.keyUpRekHanlder(event)}
-                          
-                          onKeyDown={(event) => this.enterPressed(event)}
-                          value={this.state.rekeningVal} />
-                        <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
-                      </div>
-                    </div>
+                    <div className="popup-close jsCloseBankDataPopup">Close Icon</div>
                   </div>
-                  <div className="row">
-                    <div className="col-lg-12 col-sm-12">
-                      <div className={this.state.errMsgClass}>Kamu memasukkan Nomor Rekening yang tidak dikenal</div>
-                    </div>
+
+                  {/* BODY */}
+                  {optionsForm}
+
+                </div>
+              </div>
+              <div className="col-lg-6 col-sm-12">
+                <div className="input-row">
+                  <input
+                    name="account_number"
+                    type="text"
+                    className="input-text jsInputText jsAccountNumber"
+                    pattern="\d*"
+                    maxLength="24"
+                    id="accountNumber"
+                    onChange={(event) => this.rekeningHandler(event)}
+                    onKeyUp={(event) => this.keyUpRekHanlder(event)}
+
+                    onKeyDown={(event) => this.enterPressed(event)}
+                    value={this.state.rekeningVal} />
+                  <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12 col-sm-12">
+                <div className={this.state.errMsgClass}>Kamu memasukkan Nomor Rekening yang tidak dikenal</div>
+              </div>
+            </div>
+            {
+              this.state.chekAccountShow ? (
+                <div>
+                  <div className={this.state.showName}>{this.state.targerTransfer} &nbsp;</div>
+                  <div className="bank-reset-form" onClick={() => this.resetForm()}>
+                    <div className="not-this-account jsResetDetailBank" onClick={() => this.resetForm()} style={{ display: this.state.display }}>Bukan akun ini?</div>
                   </div>
-                    {
-                      this.state.chekAccountShow ? (
-                        <div>
-                        <div className={this.state.showName}>{this.state.targerTransfer} &nbsp;</div>
-                        <div className="bank-reset-form" onClick={() => this.resetForm()}>
-                          <div className="not-this-account jsResetDetailBank" onClick={() => this.resetForm()} style={{ display: this.state.display }}>Bukan akun ini?</div>
-                        </div>
-                        </div>
-                      ) : null
-                    }
-                </form>
-              </div>
-              <div className="wrapper-button">
-                <Button 
-                  clicked={() => this.checkAccount()} 
-                  classButton={this.state.buttonClass} 
-                  btnDisabled={!this.state.buttonDisabed}
-                  onKeyPress={(event => this.formRekKeypress(event))}> Lanjut </Button>
-                {/* // <div className={this.state.buttonClass}  onClick={() => this.checkAccount()}>Lanjut</div> */}
-              </div>
+                </div>
+              ) : null
+            }
+          </form>
+        </div>
+        <div className="wrapper-button">
+          <Button
+            clicked={() => this.checkAccount()}
+            classButton={this.state.buttonClass}
+            btnDisabled={!this.state.buttonDisabed}
+            onKeyPress={(event => this.formRekKeypress(event))}> Lanjut </Button>
+          {/* // <div className={this.state.buttonClass}  onClick={() => this.checkAccount()}>Lanjut</div> */}
+        </div>
         <PreLoader styled={this.state.styleLoader} />
       </div>
     )
@@ -422,9 +508,9 @@ class DetailBank extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return{
+  return {
     onAccountDetail: (targerTransfer, bankNameVal, rekeningVal) => dispatch(actions.getOnAccountDetail(targerTransfer, bankNameVal, rekeningVal))
   }
 }
 
-export default connect(null,mapDispatchToProps)(DetailBank);
+export default connect(null, mapDispatchToProps)(DetailBank);
