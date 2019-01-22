@@ -5,11 +5,11 @@ import BodyClass from "react-body-classname";
 import ContentTransferSuccess from "../../../components/Content/Transfer/TransferSuccess/TransferSuccess";
 import Head from "../../../components/UI/Head/Head";
 class TransferSuccess extends Component {
-  componentDidMount() {
 
+  componentDidMount(){
     window.history.pushState(null, null, window.location.href);
-    window.onpopstate = function () {
-        window.history.go(1);
+    window.onpopstate = function() {
+      window.history.go(1);
     };
   }
   render() {

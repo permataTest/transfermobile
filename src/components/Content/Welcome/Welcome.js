@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 
 class Welcome extends Component {
 
+  handleNext = () => {
+    localStorage.setItem("token", true);
+  };
   render() {
 
-    
-  let handleKeypress = (e) => {
-    if (e.keyCode === 'Enter'){
-      console.log("Di enter");
-    }
-  }
 
     return (
       <div>
@@ -23,8 +20,8 @@ class Welcome extends Component {
           Transfer
         </p>
         <div className="wrapper-button">
-          <Link to="/resendcode" className="button button-primary" onKeyPress={console.log("DiEnter")}>
-            Lanjut
+          <Link to="/resendcode">
+            <button className="button button-primary" onClick={()=> this.handleNext()}>Lanjut</button>
           </Link>
         </div>
       </div>

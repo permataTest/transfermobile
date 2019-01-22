@@ -9,11 +9,14 @@ import Head from "../../components/UI/Head/Head";
 
 class ResendCode extends Component {
   componentDidMount() {
-    this.props.getDataCode();
-
+    if (!localStorage.getItem('token')) {
+      this.props.history.push('/home')
+    } else {
+      this.props.getDataCode();
+    }
     window.history.pushState(null, null, window.location.href);
-    window.onpopstate = function () {
-        window.history.go(1);
+    window.onpopstate = function() {
+      window.history.go(1);
     };
   }
 

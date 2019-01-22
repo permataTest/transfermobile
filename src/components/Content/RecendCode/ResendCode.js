@@ -80,6 +80,7 @@ class ResendCode extends Component {
         });
       }
     }
+
   };
 
   preventRefresh = (event) => {
