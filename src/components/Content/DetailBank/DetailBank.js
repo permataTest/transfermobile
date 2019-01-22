@@ -168,6 +168,8 @@ class DetailBank extends Component {
     })
   }
 
+
+  //event for checkaccount
   checkAccount = () => {
     this.props.onAccountDetail(this.props.dataDetail.name, this.state.bankNameVal, this.state.rekeningVal )
     this.setState({
@@ -223,10 +225,14 @@ class DetailBank extends Component {
     }
   }
 
+
+  //event for preventing refresh on submit
   preventRefresh = (event) => {
     event.preventDefault()
   }
 
+
+  //event enter input
   enterPressed = (event) => {
     var code = event.keyCode || event.which
     if (code === 13) {
