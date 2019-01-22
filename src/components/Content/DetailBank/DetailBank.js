@@ -199,16 +199,19 @@ class DetailBank extends Component {
         }
       }
       for (const key in this.props.dataDetail.accountTO) {
+        console.log(this.props.dataDetail.accountTO[key].Bank_Code.toString(), 'ini code dari props')
         if (this.props.dataDetail.accountTO[key].Bank_Code.toString() === this.state.bankCode.toString()) {
           success = true
         }
-
       }
 
+
       if (success) {
-        this.props.dataAllProps.history.push('/transfersuccess')
+        // this.props.dataAllProps.history.push('/transfersuccess')
+        console.log('succes')
       } else {
-        this.props.dataAllProps.history.push('/transferunsuccess')
+        // this.props.dataAllProps.history.push('/transferunsuccess')
+        console.log('errror');
       }
     }
 
@@ -488,7 +491,6 @@ class DetailBank extends Component {
                     id="accountNumber"
                     onChange={(event) => this.rekeningHandler(event)}
                     onKeyUp={(event) => this.keyUpRekHanlder(event)}
-
                     onKeyDown={(event) => this.enterPressed(event)}
                     value={this.state.rekeningVal} />
                   <label htmlFor="accountNumber" className="input-label">Nomor Rekening</label>
