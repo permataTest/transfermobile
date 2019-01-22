@@ -38,6 +38,8 @@ class ResendCode extends Component {
 
   OTPkeyup = evt => {
     let code = evt.target.value;
+    console.log('masuk OTPKEYUP');
+    
     if (code.length === 6) {
       this.setState({
         button: "button button-primary",
@@ -64,7 +66,6 @@ class ResendCode extends Component {
   }
 
   OTPverfivicationCode = () => {
-
     let otp_input = this.state.otp_code;
     let otp = this.props.code;
 
@@ -87,8 +88,21 @@ class ResendCode extends Component {
     event.preventDefault()
   }
 
-  enterTrigered = (event) => {
-    if(event.keyCode === 13 || event.which === 13) {
+  enterTrigered = (evt) => {
+
+    let code = evt.target.value;
+    if (code.length === 6) {
+      this.setState({
+        button: "button button-primary",
+        otp_code: code
+      });
+    } else {
+      this.setState({
+        button: "button button-primary button-disabled",
+        otp_code: ""
+      });
+    }
+    if(evt.keyCode === 13 || evt.which === 13) {
       this.OTPverfivicationCode()
     }
   }

@@ -181,16 +181,19 @@ class DetailBank extends Component {
       });
     }, 2000);
 
+
+    // condition for checking account number with bank code
     let found = false
     if (this.state.verified) {
       let success = false
-      for (const key in this.props.dataDetail.accountTO) {
-        if (this.props.dataDetail.accountTO[key].Bank_Code.toString() === this.state.bankCode.toString()) {
-         success = true
+      let dataAccount = this.props.dataDetail.accountTO
+      for(let key in  dataAccount) {
+        if (this.state.rekeningVal.toString().split("-").join("") === dataAccount[key].No_Account.toString()) {
+          if (this.state.bankCode.toString() === dataAccount[key].Bank_Code.toString()) {
+            success = true
+          }
         }
-        
       }
-      
       if (success) {
         this.props.dataAllProps.history.push('/transfersuccess')
       } else {
