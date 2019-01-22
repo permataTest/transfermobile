@@ -10,14 +10,17 @@ import PreLoader from '../../components/UI/PreLoader/PreLoader';
 import Head from "../../components/UI/Head/Head";
 
 class DetailBank extends Component {
-  componentDidMount() {
+componentDidMount(){
+  if (!localStorage.getItem('token')) {
+    this.props.history.push('/home')
+  } else {
     this.props.getDataDetail()
-
-    window.history.pushState(null, null, window.location.href);
-    window.onpopstate = function () {
-      window.history.go(1);
-    };
   }
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function() {
+    window.history.go(1);
+  };
+}
 
   render() {
     return (
@@ -26,9 +29,9 @@ class DetailBank extends Component {
         <BodyClass className="no-transition welcome-page" >
           <Auz>
             <Head>
-              {
-                this.props.dataDetailBank.loading ? <PreLoader styled={{ display: "block", opacity: 1 }} /> : <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props} />
-              }
+            {
+              this.props.dataDetailBank.loading ? <PreLoader styled={{ display: "block", opacity: 1 }}/>: <ContenDetailBank dataDetail={this.props.dataDetailBank} dataAllProps={this.props}/>
+            }
             </Head>
           </Auz>
         </BodyClass>

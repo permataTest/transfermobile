@@ -6,6 +6,12 @@ import ContentError from "../../components/Content/Error404/Error404";
 import Head from "../../components/UI/Head/Head";
 
 class Error404 extends Component {
+  componentDidMount(){
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function() {
+      window.history.go(1);
+    };
+  }
   render() {
     return (
       <div>
