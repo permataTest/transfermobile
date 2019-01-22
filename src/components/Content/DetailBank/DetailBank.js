@@ -309,10 +309,6 @@ class DetailBank extends Component {
             }))
           }
         }
-        // console.log('ini ke atas')
-        // let dataPropsBank = []
-        // let listBank = []
-
         break;
       case 13:
         if (this.state.inputClassFormBank === 'input-row has-input') {
