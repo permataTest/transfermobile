@@ -192,26 +192,17 @@ class DetailBank extends Component {
       let success = false
       let dataAccount = this.props.dataDetail.accountTO
       for(let key in  dataAccount) {
-        if (this.state.rekeningVal.toString().split("-").join("") === dataAccount[key].No_Account.toString()) {
+        let noRek = this.state.rekeningVal.toString().split("-").join("")
+        if (noRek === dataAccount[key].No_Account.toString()) {
           if (this.state.bankCode.toString() === dataAccount[key].Bank_Code.toString()) {
             success = true
           }
         }
       }
-      for (const key in this.props.dataDetail.accountTO) {
-        console.log(this.props.dataDetail.accountTO[key].Bank_Code.toString(), 'ini code dari props')
-        if (this.props.dataDetail.accountTO[key].Bank_Code.toString() === this.state.bankCode.toString()) {
-          success = true
-        }
-      }
-
-
       if (success) {
-        // this.props.dataAllProps.history.push('/transfersuccess')
-        console.log('succes')
+        this.props.dataAllProps.history.push('/transfersuccess')
       } else {
-        // this.props.dataAllProps.history.push('/transferunsuccess')
-        console.log('errror');
+        this.props.dataAllProps.history.push('/transferunsuccess')
       }
     }
 
@@ -275,7 +266,8 @@ class DetailBank extends Component {
           if (this.state.index < listBank.length) {
             this.setState(prevState => ({
               bankNameVal: listBank[this.state.index].bankName,
-              index: prevState.index + 1
+              bankCode: listBank[this.state.index].code,
+              index: prevState.index + 1,
             }))
           }
         }
@@ -299,12 +291,14 @@ class DetailBank extends Component {
             if (this.state.index >= 2) {
               this.setState(prevState => ({
                 bankNameVal: listBank[this.state.index - 2].bankName,
+                bankCode: listBank[this.state.index - 2].code,
                 index: prevState.index - 1
               }))
             }
           } else {
             this.setState(prevState => ({
               bankNameVal: listBank[this.state.index].bankName,
+              bankCode: listBank[this.state.index].code,
               index: prevState.index - 1
             }))
           }
