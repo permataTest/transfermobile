@@ -198,6 +198,13 @@ class DetailBank extends Component {
           }
         }
       }
+      for (const key in this.props.dataDetail.accountTO) {
+        if (this.props.dataDetail.accountTO[key].Bank_Code.toString() === this.state.bankCode.toString()) {
+          success = true
+        }
+
+      }
+
       if (success) {
         this.props.dataAllProps.history.push('/transfersuccess')
       } else {
