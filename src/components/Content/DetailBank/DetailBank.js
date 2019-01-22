@@ -255,64 +255,61 @@ class DetailBank extends Component {
     let codeArrow = 'bawah'
     switch (event.which) {
       case 40:
-        console.log('ini ke bawah')
-        if (!this.state.visited) {
-          dataPropsBank = this.props.dataDetail.bankList
-          for (const key in dataPropsBank) {
-            listBank.push({
-              code: key,
-              bankName: dataPropsBank[key]
-            })
+        // console.log('ini ke bawah')
+        if (this.state.inputClassListBank === 'popup-bank-data jsBankDataPopup show') {
+          if (!this.state.visited) {
+            dataPropsBank = this.props.dataDetail.bankList
+            for (const key in dataPropsBank) {
+              listBank.push({
+                code: key,
+                bankName: dataPropsBank[key]
+              })
+            }
+          } else {
+            listBank = this.state.dataListBank
           }
-        } else {
-          listBank = this.state.dataListBank
-        }
 
-        if (this.state.index < listBank.length) {
-          this.setState(prevState => ({
-            bankNameVal: listBank[this.state.index].bankName,
-            index: prevState.index + 1
-          }))
+          if (this.state.index < listBank.length) {
+            this.setState(prevState => ({
+              bankNameVal: listBank[this.state.index].bankName,
+              index: prevState.index + 1
+            }))
+          }
         }
-        
         break;
       case 38:
-        console.log('ini ke atas')
-        // let dataPropsBank = []
-        // let listBank = []
-        if (!this.state.visited) {
-          dataPropsBank = this.props.dataDetail.bankList
-          for (const key in dataPropsBank) {
-            listBank.push({
-              code: key,
-              bankName: dataPropsBank[key]
-            })
+        if (this.state.inputClassListBank === 'popup-bank-data jsBankDataPopup show') {
+          if (!this.state.visited) {
+            dataPropsBank = this.props.dataDetail.bankList
+            for (const key in dataPropsBank) {
+              listBank.push({
+                code: key,
+                bankName: dataPropsBank[key]
+              })
+            }
+          } else {
+            listBank = this.state.dataListBank
           }
-        } else {
-          listBank = this.state.dataListBank
-        }
-        
-        if (codeArrow === 'bawah') {
-          codeArrow = 'atas'
-          if (this.state.index >= 2) {
-            this.setState(prevState => ({
+
+          if (codeArrow === 'bawah') {
+            codeArrow = 'atas'
+            if (this.state.index >= 2) {
+              this.setState(prevState => ({
                 bankNameVal: listBank[this.state.index - 2].bankName,
                 index: prevState.index - 1
-            }))
+              }))
+            }
           } else {
-            console.log('masuk',listBank[this.state.index -1].bankName)
+            this.setState(prevState => ({
+              bankNameVal: listBank[this.state.index].bankName,
+              index: prevState.index - 1
+            }))
           }
-        } else {
-          this.setState(prevState => ({
-            bankNameVal: listBank[this.state.index].bankName,
-            index: prevState.index - 1
-        }))
         }
+        // console.log('ini ke atas')
+        // let dataPropsBank = []
+        // let listBank = []
 
-        
-        // this.setState(prevState => ({
-        //   index: prevState.index - 1
-        // }))
         break;
       case 13:
         if (this.state.inputClassFormBank === 'input-row has-input') {
@@ -338,8 +335,23 @@ class DetailBank extends Component {
           }
         }
         break;
+      case 9:
+        if (this.state.inputClassFormBank === 'input-row has-input') {
+          this.setState({
+            inputClassListBank: 'popup-bank-data jsBankDataPopup'
+          })
+          if (this.state.bankNameVal === '') {
+            this.setState({
+              inputClassFormBank: 'input-row',
+            })
+          }
+        }
+        break;
       default:
-        console.log('ini default')
+          this.setState({
+            inputClassFormBank: 'input-row has-input',
+            inputClassListBank: 'popup-bank-data jsBankDataPopup show'
+          })
         break;
     }
   }
