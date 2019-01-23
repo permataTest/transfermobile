@@ -29,6 +29,7 @@ class DetailBank extends Component {
 
   // event only number for account number
   formRekKeypress = evt => {
+    evt.stopPropagation()
     let theEvent = evt || window.event;
     let key = theEvent.keyCode || theEvent.which;
     let keyString = String.fromCharCode(key);
@@ -107,7 +108,8 @@ class DetailBank extends Component {
       rekVal = rekVal.match(new RegExp('.{1,4}', 'g')).join("-");
     }
     this.setState({
-      rekeningVal: rekVal
+      rekeningVal: rekVal,
+
     })
 
   }
@@ -388,7 +390,8 @@ class DetailBank extends Component {
               {
                 listBank.map((option, key) => {
                   let optionList = null
-                  if (key === 0) {
+                  let indexOption = this.state.index - 1
+                  if (key === indexOption) {
                     optionList = <option
                       className="item selected"
                       key={option.code}
@@ -475,7 +478,7 @@ class DetailBank extends Component {
                   <input
                     name="account_number"
                     type="text"
-                    className="input-text jsInputText jsAccountNumber"
+                    className="input-text jsInputText jsAccountNumber has-input"
                     pattern="\d*"
                     maxLength="24"
                     id="accountNumber"
