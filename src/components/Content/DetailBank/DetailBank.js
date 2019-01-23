@@ -24,7 +24,8 @@ class DetailBank extends Component {
     dataListBank: [],
     buttonDisabed: "",
     chekAccountShow: false,
-    index: 0
+    index: 0,
+    bankChosen: false
   }
 
   // event only number for account number
@@ -246,6 +247,11 @@ class DetailBank extends Component {
   }
 
   chooseBank = (event) => {
+    if (!this.state.bankChosen) {
+      this.setState({
+        bankChosen: true
+      })
+    }
     let dataPropsBank = []
     let listBank = []
     let codeArrow = 'bawah'
@@ -390,7 +396,10 @@ class DetailBank extends Component {
               {
                 listBank.map((option, key) => {
                   let optionList = null
-                  let indexOption = this.state.index - 1
+                  let indexOption = 0
+                  if (this.state.bankChosen) {
+                    indexOption = this.state.index - 1
+                  }
                   if (key === indexOption) {
                     optionList = <option
                       className="item selected"
