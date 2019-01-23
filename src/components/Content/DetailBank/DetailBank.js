@@ -478,7 +478,7 @@ class DetailBank extends Component {
                   <input
                     name="account_number"
                     type="text"
-                    className="input-text jsInputText jsAccountNumber has-input"
+                    className="input-text jsInputText jsAccountNumber"
                     pattern="\d*"
                     maxLength="24"
                     id="accountNumber"
