@@ -12,7 +12,7 @@ import Head from "../../components/UI/Head/Head";
 class DetailBank extends Component {
 componentDidMount(){
   if (!localStorage.getItem('token')) {
-    this.props.history.push('/home')
+    this.props.history.push('/')
   } else {
     this.props.getDataDetail()
   }
