@@ -7,6 +7,7 @@ import ResendCode from "./container/ResendCode/ResendCode";
 import TransferSuccess from "./container/Transfer/TransferSuccess/TransferSuccess";
 import TransferUnsuccess from "./container/Transfer/TransferUnsuccess/TranferUnsuccess";
 import Welcome from "./container/Welcome/Welcome";
+// import axios from 'axios'
 
 class App extends Component {
   componentDidMount = () => {
